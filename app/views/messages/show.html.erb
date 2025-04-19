@@ -1,0 +1,6 @@
+<h1>Mensaje</h1>
+<p><strong>Chat ID:</strong> <%= @message.chat_id %></p>
+<p><strong>Usuario ID:</strong> <%= @message.user_id %></p>
+<p><strong>Contenido:</strong> <%= @message.body %></p>
+
+<%= link_to "Volver a la lista", messages_path, class: "btn btn-secondary" %>
