@@ -2,4 +2,7 @@
 <p><strong>Emisor ID:</strong> <%= @chat.sender_id %></p>
 <p><strong>Receptor ID:</strong> <%= @chat.receiver_id %></p>
 
-<%= link_to "Volver a la lista", chats_path, class: "btn btn-secondary" %>
+<%= link_to "Back to list", chats_path, class: "btn btn-secondary" %>
+
+<p><%= link_to 'Back to Chats', chats_path %></p>
+<p><%= link_to 'Add New Chat', new_chat_path %></p>

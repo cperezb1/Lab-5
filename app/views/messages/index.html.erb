@@ -15,8 +15,10 @@
         <td><%= message.chat_id %></td>
         <td><%= message.user_id %></td>
         <td><%= message.body %></td>
-        <td><%= link_to "Ver", message_path(message), class: "btn btn-primary btn-sm" %></td>
+        <td><%= link_to "Show", message_path(message), class: "btn btn-primary btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<p><%= link_to 'Add New Message', new_message_path %></p>

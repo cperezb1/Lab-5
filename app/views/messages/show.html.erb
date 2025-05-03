@@ -3,4 +3,7 @@
 <p><strong>Usuario ID:</strong> <%= @message.user_id %></p>
 <p><strong>Contenido:</strong> <%= @message.body %></p>
 
-<%= link_to "Volver a la lista", messages_path, class: "btn btn-secondary" %>
+<%= link_to "Back to list", messages_path, class: "btn btn-secondary" %>
+
+<p><%= link_to 'Back to Messages', messages_path %></p>
+<p><%= link_to 'Add New Message', new_message_path %></p>

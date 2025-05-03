@@ -13,8 +13,10 @@
       <tr>
         <td><%= chat.sender_id %></td>
         <td><%= chat.receiver_id %></td>
-        <td><%= link_to "Ver", chat_path(chat), class: "btn btn-primary btn-sm" %></td>
+        <td><%= link_to "Show", chat_path(chat), class: "btn btn-primary btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<p><%= link_to 'Add New Chat', new_chat_path %></p>
