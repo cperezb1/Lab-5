@@ -1,22 +1,25 @@
-<h1>Lista de Chats</h1>
+<h1>Chats List</h1>
 
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Emisor</th>
-      <th>Receptor</th>
-      <th>Acción</th>
+      <th>Sender</th>
+      <th>Receiver</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @chats.each do |chat| %>
       <tr>
-        <td><%= chat.sender_id %></td>
-        <td><%= chat.receiver_id %></td>
-        <td><%= link_to "Show", chat_path(chat), class: "btn btn-primary btn-sm" %></td>
+        <td><%= chat.sender.first_name %></td>
+        <td><%= chat.receiver.first_name %></td>
+        <td>
+          <%= link_to 'Show', chat_path(chat), class: "btn btn-primary btn-sm" %>
+          <%= link_to 'Edit', edit_chat_path(chat), class: "btn btn-warning btn-sm" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<p><%= link_to 'Add New Chat', new_chat_path %></p>
+<p><%= link_to 'Add New Chat', new_chat_path, class: "btn btn-success" %></p>

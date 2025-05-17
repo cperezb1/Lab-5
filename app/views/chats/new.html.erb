@@ -14,15 +14,17 @@
 
   <div>
     <%= form.label :sender_id %><br>
-    <%= form.select :sender_id, User.all.map { |u| [u.email, u.id] } %>
+    <%= form.number_field :sender_id %>
   </div>
 
   <div>
     <%= form.label :receiver_id %><br>
-    <%= form.select :receiver_id, User.all.map { |u| [u.email, u.id] } %>
+    <%= form.number_field :receiver_id %>
   </div>
 
   <div>
     <%= form.submit %>
   </div>
 <% end %>
+
+<p><%= link_to 'Back to Chats', chats_path, class: "btn btn-secondary" %></p>

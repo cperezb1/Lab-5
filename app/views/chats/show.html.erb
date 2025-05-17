@@ -1,8 +1,18 @@
-<h1>Chat entre:</h1>
-<p><strong>Emisor ID:</strong> <%= @chat.sender_id %></p>
-<p><strong>Receptor ID:</strong> <%= @chat.receiver_id %></p>
+<h1>Chat Details</h1>
 
-<%= link_to "Back to list", chats_path, class: "btn btn-secondary" %>
+<p><strong>Sender:</strong> <%= @chat.sender.first_name %> <%= @chat.sender.last_name %></p>
+<p><strong>Receiver:</strong> <%= @chat.receiver.first_name %> <%= @chat.receiver.last_name %></p>
 
-<p><%= link_to 'Back to Chats', chats_path %></p>
-<p><%= link_to 'Add New Chat', new_chat_path %></p>
+<h2>Messages in this Chat</h2>
+<ul>
+  <% @chat.messages.each do |message| %>
+    <li>
+      <strong><%= message.user.first_name %>:</strong> <%= message.body %>
+      (<%= link_to 'View Message', message_path(message) %>)
+    </li>
+  <% end %>
+</ul>
+
+<p><%= link_to 'Edit this Chat', edit_chat_path(@chat), class: "btn btn-primary" %></p>
+<p><%= link_to 'Back to Chats', chats_path, class: "btn btn-secondary" %></p>
+<p><%= link_to 'Add New Chat', new_chat_path, class: "btn btn-success" %></p>

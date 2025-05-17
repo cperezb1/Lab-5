@@ -1,8 +1,26 @@
 <h1><%= @user.first_name %> <%= @user.last_name %></h1>
 <p><strong>Email:</strong> <%= @user.email %></p>
 
-<%= link_to "Back to list", users_path, class: "btn btn-secondary" %>
+<h2>Chats Participated In</h2>
+<ul>
+  <% (@user.sent_chats + @user.received_chats).uniq.each do |chat| %>
+    <li>
+      Chat between <%= chat.sender.first_name %> and <%= chat.receiver.first_name %>
+      (<%= link_to 'View Chat', chat_path(chat) %>)
+    </li>
+  <% end %>
+</ul>
 
-<p><%= link_to 'Back to Users', users_path %></p>
-<p><%= link_to 'Edit this User', edit_user_path(@user) %></p>
-<p><%= link_to 'Add New User', new_user_path %></p>
+<h2>Messages Sent</h2>
+<ul>
+  <% @user.messages.each do |message| %>
+    <li>
+      <%= message.body %> in Chat ID: <%= message.chat_id %>
+      (<%= link_to 'View Message', message_path(message) %>)
+    </li>
+  <% end %>
+</ul>
+
+<p><%= link_to 'Edit this User', edit_user_path(@user), class: "btn btn-primary" %></p>
+<p><%= link_to 'Back to Users', users_path, class: "btn btn-secondary" %></p>
+<p><%= link_to 'Add New User', new_user_path, class: "btn btn-success" %></p>

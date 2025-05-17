@@ -1,0 +1,30 @@
+<h1>Edit Chat</h1>
+
+<%= form_with(model: @chat, local: true) do |form| %>
+  <% if @chat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@chat.errors.count, "error") %> prohibited this chat from being saved:</h2>
+      <ul>
+        <% @chat.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :sender_id %><br>
+    <%= form.number_field :sender_id %>
+  </div>
+
+  <div>
+    <%= form.label :receiver_id %><br>
+    <%= form.number_field :receiver_id %>
+  </div>
+
+  <div>
+    <%= form.submit "Update Chat" %>
+  </div>
+<% end %>
+
+<p><%= link_to 'Back to Chats', chats_path, class: "btn btn-secondary" %></p>

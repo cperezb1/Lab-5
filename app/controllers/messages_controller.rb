@@ -1,4 +1,12 @@
 class MessagesController < ApplicationController
+  def index
+    @messages = Message.all
+  end
+
+  def show
+    @message = Message.find(params[:id])
+  end
+
   def new
     @message = Message.new
   end
@@ -9,6 +17,19 @@ class MessagesController < ApplicationController
       redirect_to messages_path, notice: 'Message created successfully.'
     else
       render :new
+    end
+  end
+
+  def edit
+    @message = Message.find(params[:id])
+  end
+
+  def update
+    @message = Message.find(params[:id])
+    if @message.update(message_params)
+      redirect_to @message, notice: 'Message updated successfully.'
+    else
+      render :edit
     end
   end
 

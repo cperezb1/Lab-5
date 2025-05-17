@@ -13,13 +13,13 @@
   <% end %>
 
   <div>
-    <%= form.label :chat_id %><br>
-    <%= form.select :chat_id, Chat.all.map { |c| ["Chat ##{c.id}", c.id] } %>
+    <%= form.label :user_id %><br>
+    <%= form.number_field :user_id %>
   </div>
 
   <div>
-    <%= form.label :user_id, "Author" %><br>
-    <%= form.select :user_id, User.all.map { |u| [u.email, u.id] } %>
+    <%= form.label :chat_id %><br>
+    <%= form.number_field :chat_id %>
   </div>
 
   <div>
@@ -31,3 +31,5 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<p><%= link_to 'Back to Messages', messages_path, class: "btn btn-secondary" %></p>
