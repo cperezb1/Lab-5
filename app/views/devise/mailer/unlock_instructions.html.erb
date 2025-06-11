@@ -1,0 +1,9 @@
+<h1>Unlock Instructions</h1>
+
+<p>Hello <%= @resource.email %>,</p>
+
+<p>Your account has been locked due to too many failed login attempts.</p>
+
+<p>You can unlock it by clicking the link below:</p>
+
+<p><%= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token) %></p>

@@ -1,18 +1,14 @@
 class ChatsController < ApplicationController
-  def index
-    @chats = Chat.all
-  end
+  before_action :authenticate_user!
+  load_and_authorize_resource
 
-  def show
-    @chat = Chat.find(params[:id])
-  end
+  def index; end
 
-  def new
-    @chat = Chat.new
-  end
+  def show; end
+
+  def new; end
 
   def create
-    @chat = Chat.new(chat_params)
     if @chat.save
       redirect_to chats_path, notice: 'Chat created successfully.'
     else
@@ -20,12 +16,9 @@ class ChatsController < ApplicationController
     end
   end
 
-  def edit
-    @chat = Chat.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @chat = Chat.find(params[:id])
     if @chat.update(chat_params)
       redirect_to @chat, notice: 'Chat updated successfully.'
     else

@@ -1,10 +1,23 @@
 class UsersController < ApplicationController
+  # Solo pide autenticación para acciones privadas
+  before_action :authenticate_user!, only: [:index, :edit, :update, :destroy]
+  
+  # Carga el recurso User y verifica permisos con CanCanCan
+  load_and_authorize_resource
+
+  def index
+    # @users es manejado automáticamente por CanCanCan
+  end
+
+  def show
+    # @user también es cargado automáticamente
+  end
+
   def new
-    @user = User.new
+    # @user = User.new ya está hecho por CanCanCan
   end
 
   def create
-    @user = User.new(user_params)
     if @user.save
       redirect_to users_path, notice: 'User created successfully.'
     else
@@ -12,25 +25,20 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    @users = User.all
-  end
-
-  def show
-    @user = User.find(params[:id])
-  end
-
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(user_params)
       redirect_to @user, notice: 'User updated successfully.'
     else
       render :edit
     end
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to users_path, notice: "User deleted successfully."
   end
 
   private

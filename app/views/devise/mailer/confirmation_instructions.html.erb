@@ -1,0 +1,7 @@
+<h1>Confirmation instructions</h1>
+
+<p>Hello <%= @resource.email %>,</p>
+
+<p>To confirm your account, please click the link below:</p>
+
+<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>

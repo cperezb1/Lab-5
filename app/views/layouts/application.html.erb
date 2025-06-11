@@ -17,14 +17,23 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body>
+    <div class="container mt-3">
+      <% if user_signed_in? %>
+        <p>Signed in as <strong><%= current_user.username || current_user.email %></strong></p>
+        <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-sm btn-outline-secondary me-2" %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-danger" %>
+      <% else %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-sm btn-success me-2" %>
+        <%= link_to "Login", new_user_session_path, class: "btn btn-sm btn-primary" %>
+      <% end %>
+    </div>
+
     <%= yield %>
     <%= render "layouts/app_navbar" %>
   </body>
-    
 </html>

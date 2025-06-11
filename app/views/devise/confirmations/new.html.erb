@@ -1,0 +1,23 @@
+<div class="container mt-5">
+  <div class="card mx-auto" style="max-width: 500px;">
+    <div class="card-body">
+      <h3 class="card-title text-center">Resend Confirmation Instructions</h3>
+
+      <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { class: "mt-4" }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="mb-3">
+          <%= f.label :email, class: "form-label" %>
+          <%= f.email_field :email, autofocus: true, class: "form-control" %>
+        </div>
+
+        <div class="d-grid">
+          <%= f.submit "Resend", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+      <hr>
+      <%= link_to "Back to Login", new_session_path(resource_name), class: "btn btn-link" %>
+    </div>
+  </div>
+</div>

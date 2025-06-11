@@ -25,5 +25,23 @@
   },
   "browserslist": [
     "defaults"
-  ]
+  ],
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cperezb1/Lab-5.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cperezb1/Lab-5/issues"
+  },
+  "homepage": "https://github.com/cperezb1/Lab-5#readme"
 }
