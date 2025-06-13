@@ -1,44 +1,41 @@
 class UsersController < ApplicationController
-  # Solo pide autenticación para acciones privadas
-  before_action :authenticate_user!, only: [:index, :edit, :update, :destroy]
-  
-  # Carga el recurso User y verifica permisos con CanCanCan
+  before_action :authenticate_user!
   load_and_authorize_resource
 
   def index
-    # @users es manejado automáticamente por CanCanCan
+    redirect_to chats_path, alert: "Access denied."
   end
 
   def show
-    # @user también es cargado automáticamente
+    redirect_to chats_path, alert: "Access denied." unless @user == current_user
   end
 
   def new
-    # @user = User.new ya está hecho por CanCanCan
+    redirect_to chats_path, alert: "Access denied."
   end
 
   def create
-    if @user.save
-      redirect_to users_path, notice: 'User created successfully.'
-    else
-      render :new
-    end
+    redirect_to chats_path, alert: "Access denied."
   end
 
   def edit
+    redirect_to chats_path, alert: "Access denied." unless @user == current_user
   end
 
   def update
-    if @user.update(user_params)
-      redirect_to @user, notice: 'User updated successfully.'
+    if @user == current_user
+      if @user.update(user_params)
+        redirect_to @user, notice: 'Profile updated successfully.'
+      else
+        render :edit
+      end
     else
-      render :edit
+      redirect_to chats_path, alert: "Access denied."
     end
   end
 
   def destroy
-    @user.destroy
-    redirect_to users_path, notice: "User deleted successfully."
+    redirect_to chats_path, alert: "Access denied."
   end
 
   private

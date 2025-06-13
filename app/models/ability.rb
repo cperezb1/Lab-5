@@ -2,21 +2,19 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    user ||= User.new # usuario invitado (no logueado)
+    user ||= User.new # guest
 
     if user.persisted?
-      # Usuarios autenticados pueden:
-      can :read, User   # ver usuarios
-      can [:edit, :update], User, id: user.id # editar solo su perfil
+      can :read, User, id: user.id # solo puede ver su propio perfil
+      can [:edit, :update], User, id: user.id
 
-      can :read, Chat
+      can :read, Chat, sender_id: user.id
+      can :read, Chat, receiver_id: user.id
       can [:create, :update, :destroy], Chat, sender_id: user.id
+
       can :read, Message
       can [:create, :update, :destroy], Message, user_id: user.id
-
-      # Aquí puedes agregar otras reglas si agregas más modelos
     else
-      # Invitados (no autenticados) solo pueden registrarse
       can :new, User
       can :create, User
     end

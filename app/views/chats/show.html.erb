@@ -1,18 +1,35 @@
-<h1>Chat Details</h1>
+<h1 class="mb-4">
+  Conversation with 
+  <%= @chat.other_participant(current_user).full_name.presence || @chat.other_participant(current_user).email %>
+</h1>
 
-<p><strong>Sender:</strong> <%= @chat.sender.first_name %> <%= @chat.sender.last_name %></p>
-<p><strong>Receiver:</strong> <%= @chat.receiver.first_name %> <%= @chat.receiver.last_name %></p>
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <% if @chat.messages.any? %>
+      <% @chat.messages.each do |message| %>
+        <div class="mb-3">
+          <strong>
+            <%= message.user == current_user ? 'You' : message.user.full_name.presence || message.user.email %>:
+          </strong>
+          <p class="mb-1"><%= message.content %></p>
+          <small class="text-muted"><%= message.created_at.strftime("%d %b %Y %H:%M") %></small>
+        </div>
+        <hr>
+      <% end %>
+    <% else %>
+      <p class="text-muted">No messages yet. Start the conversation!</p>
+    <% end %>
+  </div>
+</div>
 
-<h2>Messages in this Chat</h2>
-<ul>
-  <% @chat.messages.each do |message| %>
-    <li>
-      <strong><%= message.user.first_name %>:</strong> <%= message.body %>
-      (<%= link_to 'View Message', message_path(message) %>)
-    </li>
-  <% end %>
-</ul>
+<h4 class="mb-3">Send a new message</h4>
+<%= form_with(model: [@chat, Message.new], local: true) do |form| %>
+  <div class="mb-3">
+    <%= form.text_area :content, class: "form-control", rows: 3, placeholder: "Type your message..." %>
+  </div>
+  <%= form.submit "Send", class: "btn btn-primary" %>
+<% end %>
 
-<p><%= link_to 'Edit this Chat', edit_chat_path(@chat), class: "btn btn-primary" %></p>
-<p><%= link_to 'Back to Chats', chats_path, class: "btn btn-secondary" %></p>
-<p><%= link_to 'Add New Chat', new_chat_path, class: "btn btn-success" %></p>
+<p class="mt-4">
+  <%= link_to 'Back to Inbox', chats_path, class: "btn btn-outline-secondary" %>
+</p>

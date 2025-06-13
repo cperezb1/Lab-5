@@ -1,9 +1,9 @@
-<h1>New Chat</h1>
+<h1 class="mb-4">Start a New Chat</h1>
 
 <%= form_with(model: @chat, local: true) do |form| %>
   <% if @chat.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@chat.errors.count, "error") %> prohibited this chat from being saved:</h2>
+    <div class="alert alert-danger">
+      <h4>Errors:</h4>
       <ul>
         <% @chat.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -12,19 +12,16 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :sender_id %><br>
-    <%= form.number_field :sender_id %>
+  <div class="mb-3">
+    <%= form.label :receiver_id, "Select a user to chat with", class: "form-label" %>
+    <%= form.collection_select :receiver_id, User.where.not(id: current_user.id), :id, :full_name, prompt: "Choose a user", class: "form-select" %>
   </div>
 
-  <div>
-    <%= form.label :receiver_id %><br>
-    <%= form.number_field :receiver_id %>
-  </div>
+  <%= form.hidden_field :sender_id, value: current_user.id %>
 
-  <div>
-    <%= form.submit %>
-  </div>
+  <%= form.submit "Start Chat", class: "btn btn-success" %>
 <% end %>
 
-<p><%= link_to 'Back to Chats', chats_path, class: "btn btn-secondary" %></p>
+<p class="mt-3">
+  <%= link_to 'Back to Inbox', chats_path, class: "btn btn-outline-secondary" %>
+</p>

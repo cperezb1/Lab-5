@@ -1,25 +1,30 @@
-<h1>Chats List</h1>
+<h1 class="mb-4">My Inbox</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Sender</th>
-      <th>Receiver</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @chats.each do |chat| %>
+<% if @chats.any? %>
+  <table class="table table-hover align-middle shadow-sm">
+    <thead class="table-light">
       <tr>
-        <td><%= chat.sender.first_name %></td>
-        <td><%= chat.receiver.first_name %></td>
-        <td>
-          <%= link_to 'Show', chat_path(chat), class: "btn btn-primary btn-sm" %>
-          <%= link_to 'Edit', edit_chat_path(chat), class: "btn btn-warning btn-sm" %>
-        </td>
+        <th scope="col">Chat With</th>
+        <th scope="col">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @chats.each do |chat| %>
+        <% other_user = chat.other_participant(current_user) %>
+        <tr>
+          <td><%= other_user&.full_name.presence || other_user&.email || "Unknown User" %></td>
+          <td>
+            <%= link_to 'Show', chat_path(chat), class: "btn btn-sm btn-primary me-1" %>
+            <% if chat.sender == current_user %>
+              <%= link_to 'Edit', edit_chat_path(chat), class: "btn btn-sm btn-outline-secondary" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="alert alert-info">You don't have any chats yet.</div>
+<% end %>
 
-<p><%= link_to 'Add New Chat', new_chat_path, class: "btn btn-success" %></p>
+<%= link_to 'Start New Chat', new_chat_path, class: "btn btn-success mt-3" %>
