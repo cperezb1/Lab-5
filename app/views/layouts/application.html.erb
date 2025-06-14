@@ -19,30 +19,22 @@
   </head>
 
   <body>
+    <!-- Navbar visible en todo momento -->
+    <%= render "layouts/app_navbar" %>
+
+    <!-- Mensajes Flash -->
     <div class="container mt-3">
-      <% if user_signed_in? %>
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <div>
-            <p class="mb-1">Signed in as <strong><%= current_user.full_name.presence || current_user.email %></strong></p>
-            <%= link_to "My Inbox", chats_path, class: "btn btn-outline-primary btn-sm me-2" %>
-          </div>
-          <div>
-            <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-sm btn-outline-secondary me-2" %>
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-sm btn-danger" %>
-          </div>
-        </div>
-      <% else %>
-        <div class="mb-3">
-          <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-sm btn-success me-2" %>
-          <%= link_to "Login", new_user_session_path, class: "btn btn-sm btn-primary" %>
-        </div>
+      <% if notice %>
+        <div class="alert alert-success"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger"><%= alert %></div>
       <% end %>
     </div>
 
+    <!-- Contenido principal -->
     <div class="container">
       <%= yield %>
     </div>
-
-    <%= render "layouts/app_navbar" %>
   </body>
 </html>
